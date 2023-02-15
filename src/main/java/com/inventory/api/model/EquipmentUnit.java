@@ -17,7 +17,7 @@ public class EquipmentUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "equipment_unit_id")
-    private Integer equipmentUnitId;
+    private Long equipmentUnitId;
 
     @ManyToOne
     @JoinColumn(name = "equipment_id")

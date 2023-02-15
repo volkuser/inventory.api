@@ -5,7 +5,8 @@ import java.util.concurrent.CompletableFuture;
 
 import jakarta.validation.Valid;
 
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inventory.api.model.TrainingCenter;
 import com.inventory.api.service.TrainingCenterService;
 
-@Component
+@AllArgsConstructor
 @RestController
-@RequestMapping("/api/training-centers")
+@RequestMapping("/training-centers")
 public class TrainingCenterController {
 
     private TrainingCenterService trainingCenterService;
@@ -48,6 +49,6 @@ public class TrainingCenterController {
 
     @DeleteMapping("/{id}")
     public CompletableFuture<Void> deleteTrainingCenter(@PathVariable(value = "id") Long trainingCenterId) {
-        trainingCenterService.delete(trainingCenterId);
+        return trainingCenterService.delete(trainingCenterId);
     }
 }
