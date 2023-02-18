@@ -40,17 +40,4 @@ public class Equipment {
     @Size(max = 50)
     @Column(name = "manufacturer")
     private String manufacturer;
-
-    @Digits(integer = 10, fraction = 2)
-    @DecimalMin(value = "0.00")
-    @Column(name = "cost")
-    private BigDecimal cost;
-
-    @PastOrPresent
-    @Column(name = "warranty_start")
-    private LocalDate warrantyStart;
-
-    @Future
-    @Column(name = "warranty_end")
-    private LocalDate warrantyEnd;
 }

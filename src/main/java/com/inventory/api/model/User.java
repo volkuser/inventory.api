@@ -3,13 +3,15 @@ package com.inventory.api.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "user")
 public class User {
@@ -27,4 +29,17 @@ public class User {
     @Size(max = 100)
     @Column(nullable = false)
     private String password;
+
+    @Transient
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public void setPassword(String password) {
+        this.password = passwordEncoder.encode(password);
+    }
+
+    public User(Long userId, String username, String password) {
+        this.userId = userId;
+        this.username = username;
+        setPassword(password);
+    }
 }
