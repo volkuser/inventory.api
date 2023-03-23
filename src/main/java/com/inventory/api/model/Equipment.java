@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,14 +20,6 @@ public class Equipment {
     @Size(max = 100)
     @Column(name = "model_name")
     private String modelName;
-
-    @Size(max = 50)
-    @Column(name = "product_code")
-    private String productCode;
-
-    @Size(max = 100)
-    @Column(name = "description")
-    private String description;
 
     @NotNull
     @ManyToOne
