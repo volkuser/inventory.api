@@ -13,21 +13,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     @NotBlank
     @Size(max = 50)
-    @Column(nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @NotBlank
     @Size(max = 100)
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Transient
