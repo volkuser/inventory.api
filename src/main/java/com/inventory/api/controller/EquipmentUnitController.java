@@ -5,16 +5,12 @@ import java.util.concurrent.CompletableFuture;
 
 import jakarta.validation.Valid;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import com.inventory.api.model.EquipmentUnit;
 import com.inventory.api.service.EquipmentUnitService;
@@ -29,6 +25,17 @@ public class EquipmentUnitController {
     @GetMapping
     public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnits() {
         return equipmentUnitService.findAll();
+    }
+
+    @GetMapping("/paginated")
+    public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsPaginated(@RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
+                                                                                @RequestParam(value = "limit", defaultValue = "20") @Min(1) @Max(100) Integer limit) {
+        return equipmentUnitService.findAllPaginated(offset, limit);
+    }
+
+    @GetMapping("/count")
+    public CompletableFuture<Long> getEquipmentUnitCount(){
+        return equipmentUnitService.getCountOfElements();
     }
 
     @PostMapping

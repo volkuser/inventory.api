@@ -29,6 +29,9 @@ public class EquipmentUnit {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Column(name = "on_state")
+    private boolean onState;
+
     @ManyToOne
     @JoinColumn(name = "responsible_person_id")
     private Employee responsiblePerson;

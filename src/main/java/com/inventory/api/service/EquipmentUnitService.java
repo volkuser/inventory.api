@@ -11,6 +11,10 @@ import com.inventory.api.model.EquipmentUnit;
 import com.inventory.api.repo.EquipmentUnitRepository;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +29,20 @@ public class EquipmentUnitService {
     @Transactional(readOnly = true)
     public CompletableFuture<List<EquipmentUnit>> findAll() {
         return CompletableFuture.completedFuture(equipmentUnitRepository.findAll());
+    }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<List<EquipmentUnit>> findAllPaginated(int offset, int limit) {
+        Page<EquipmentUnit> equipmentUnitPage = equipmentUnitRepository.findAll(PageRequest.of(offset, limit));
+        List<EquipmentUnit> equipmentUnitList = equipmentUnitPage.getContent();
+        return CompletableFuture.completedFuture(equipmentUnitList);
+    }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<Long> getCountOfElements() {
+        return CompletableFuture.completedFuture(equipmentUnitRepository.count());
     }
 
     @Async
