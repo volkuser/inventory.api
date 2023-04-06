@@ -21,7 +21,7 @@ import com.inventory.api.service.EquipmentTypeService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/equipment-type")
+@RequestMapping("/equipment-types")
 public class EquipmentTypeController {
     private EquipmentTypeService equipmentTypeService;
 

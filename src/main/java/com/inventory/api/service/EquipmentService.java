@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import com.inventory.api.model.EquipmentType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class EquipmentService {
     private EquipmentRepository equipmentRepository;
+    private EquipmentTypeService equipmentTypeService;
 
     @Async
     @Transactional(readOnly = true)
@@ -37,6 +39,14 @@ public class EquipmentService {
     public CompletableFuture<Equipment> findById(Long id) {
         Optional<Equipment> equipment = equipmentRepository.findById(id);
         return CompletableFuture.completedFuture(equipment.get());
+    }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<List<Equipment>> findByEquipmentType(Long equipmentTypeId) {
+        EquipmentType equipmentType = equipmentTypeService.findById(equipmentTypeId).join();
+        List<Equipment> equipmentList = equipmentRepository.findByEquipmentType(equipmentType);
+        return CompletableFuture.completedFuture(equipmentList);
     }
 
     @Async

@@ -32,10 +32,6 @@ public class EquipmentUnit {
     @Column(name = "on_state")
     private boolean onState;
 
-    @ManyToOne
-    @JoinColumn(name = "responsible_person_id")
-    private Employee responsiblePerson;
-
     @Column(name = "guid_code")
     private UUID guidCode;
 }

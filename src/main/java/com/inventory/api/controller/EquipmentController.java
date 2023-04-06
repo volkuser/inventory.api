@@ -19,7 +19,7 @@ import com.inventory.api.model.Equipment;
 import com.inventory.api.service.EquipmentService;
 
 @RestController
-@RequestMapping("/equipment")
+@RequestMapping("/equipments")
 @AllArgsConstructor
 public class EquipmentController {
     private EquipmentService equipmentService;
@@ -37,6 +37,11 @@ public class EquipmentController {
     @GetMapping("/{equipmentId}")
     public CompletableFuture<Equipment> findById(@PathVariable Long equipmentId) {
         return equipmentService.findById(equipmentId);
+    }
+
+    @GetMapping("/equipmentType/{equipmentTypeId}")
+    public CompletableFuture<List<Equipment>> findByEquipmentType(@PathVariable Long equipmentTypeId) {
+        return equipmentService.findByEquipmentType(equipmentTypeId);
     }
 
     @PutMapping("/{equipmentId}")

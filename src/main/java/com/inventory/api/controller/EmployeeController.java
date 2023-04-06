@@ -21,7 +21,7 @@ import com.inventory.api.service.EmployeeService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 public class EmployeeController {
     private EmployeeService employeeService;
 

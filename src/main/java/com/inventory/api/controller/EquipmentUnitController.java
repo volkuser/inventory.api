@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import com.inventory.api.model.EquipmentUnit;
