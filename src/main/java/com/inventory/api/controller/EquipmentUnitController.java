@@ -1,6 +1,7 @@
 package com.inventory.api.controller;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import jakarta.validation.Valid;
@@ -56,5 +57,10 @@ public class EquipmentUnitController {
     @DeleteMapping("/{id}")
     public CompletableFuture<Void> deleteEquipmentUnit(@PathVariable(value = "id") Long equipmentUnitId) {
         return equipmentUnitService.delete(equipmentUnitId);
+    }
+
+    @GetMapping("/guid/{guidCode}")
+    public CompletableFuture<EquipmentUnit> getEquipmentUnitByGuidCode(@PathVariable UUID guidCode) {
+        return equipmentUnitService.findByGuidCode(guidCode);
     }
 }

@@ -21,11 +21,11 @@ public class EquipmentUnit {
     @Column(name = "inventory_number")
     private String inventoryNumber;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private Location location;
 

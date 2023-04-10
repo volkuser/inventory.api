@@ -2,6 +2,7 @@ package com.inventory.api.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import jakarta.validation.Valid;
@@ -13,8 +14,6 @@ import com.inventory.api.repo.EquipmentUnitRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,5 +69,12 @@ public class EquipmentUnitService {
     public CompletableFuture<Void> delete(Long id) {
         equipmentUnitRepository.deleteById(id);
         return CompletableFuture.completedFuture(null);
+    }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<EquipmentUnit> findByGuidCode(UUID guidCode) {
+        Optional<EquipmentUnit> equipmentUnit = equipmentUnitRepository.findByGuidCode(guidCode);
+        return CompletableFuture.completedFuture(equipmentUnit.get());
     }
 }
