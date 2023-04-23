@@ -33,7 +33,7 @@ public class EquipmentUnitController {
         return equipmentUnitService.findAllPaginated(offset, limit);
     }
 
-    @GetMapping("/exist-paginated")
+    @PostMapping("/exist-paginated")
     public CompletableFuture<List<EquipmentUnit>> getEquipmentUnitsPaginated(
             @RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
             @RequestParam(value = "limit", defaultValue = "20") @Min(1) @Max(100) Integer limit,
@@ -73,18 +73,18 @@ public class EquipmentUnitController {
         return equipmentUnitService.findByGuidCode(guidCode);
     }
 
-    @GetMapping("/search")
-    public CompletableFuture<List<EquipmentUnit>> searchEquipmentUnitsByInventoryNumber(@RequestParam String query,
+    @PostMapping("/search")
+    public CompletableFuture<List<EquipmentUnit>> searchEquipmentUnitsByInventoryNumber(@RequestParam(name = "query") String query,
                                                                                         @RequestBody List<EquipmentUnit> equipmentUnits) {
         return equipmentUnitService.findByInventoryNumber(query, equipmentUnits);
     }
 
-    @GetMapping("/by-equipment/{equipmentId}")
+    @PostMapping("/by-equipment/{equipmentId}")
     public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsByEquipment(@PathVariable Long equipmentId, @RequestBody List<EquipmentUnit> equipmentUnits) {
         return equipmentUnitService.findByEquipment(equipmentId, equipmentUnits);
     }
 
-    @GetMapping("/by-location/{locationId}")
+    @PostMapping("/by-location/{locationId}")
     public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsByLocation(@PathVariable Long locationId, @RequestBody List<EquipmentUnit> equipmentUnits) {
         return equipmentUnitService.findByLocation(locationId, equipmentUnits);
     }
