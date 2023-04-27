@@ -18,28 +18,28 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public CompletableFuture<List<User>> getAllUsers() {
+    private CompletableFuture<List<User>> getAllUsers() {
         return userService.findAll();
     }
 
     @PostMapping
-    public CompletableFuture<User> createUser(@Valid @RequestBody User user) {
+    private CompletableFuture<User> createUser(@Valid @RequestBody User user) {
         return userService.create(user);
     }
 
     @GetMapping("/{id}")
-    public CompletableFuture<User> getUserById(@PathVariable(value = "id") Long userId) {
+    private CompletableFuture<User> getUserById(@PathVariable(value = "id") Long userId) {
         return userService.findById(userId);
     }
 
     @PutMapping("/{id}")
-    public CompletableFuture<User> updateUser(@PathVariable(value = "id") Long userId,
+    private CompletableFuture<User> updateUser(@PathVariable(value = "id") Long userId,
                                               @Valid @RequestBody User userDetails) {
         return userService.update(userDetails, userId);
     }
 
     @DeleteMapping("/{id}")
-    public CompletableFuture<Void> deleteUser(@PathVariable(value = "id") Long userId) {
+    private CompletableFuture<Void> deleteUser(@PathVariable(value = "id") Long userId) {
         return userService.delete(userId);
     }
 }

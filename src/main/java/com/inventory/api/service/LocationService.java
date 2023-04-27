@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import com.inventory.api.repo.TrainingCenterRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -21,6 +22,7 @@ import org.springframework.scheduling.annotation.Async;
 public class LocationService {
 
     private final LocationRepository locationRepository;
+    private final TrainingCenterRepository trainingCenterRepository;
 
     @Async
     @Transactional(readOnly = true)
@@ -53,5 +55,12 @@ public class LocationService {
     public CompletableFuture<Void> delete(Long id) {
         locationRepository.deleteById(id);
         return CompletableFuture.completedFuture(null);
+    }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<Location> findByTrainingCenterIdAndLocationNumber(Long trainingCenterId, String locationNumber) {
+        Optional<Location> location = locationRepository.findByTrainingCenterAndLocationNumber(trainingCenterRepository.findByTrainingCenterId(trainingCenterId), locationNumber);
+        return CompletableFuture.completedFuture(location.get());
     }
 }

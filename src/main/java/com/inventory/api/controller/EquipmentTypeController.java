@@ -26,27 +26,27 @@ public class EquipmentTypeController {
     private EquipmentTypeService equipmentTypeService;
 
     @GetMapping
-    public CompletableFuture<List<EquipmentType>> getAll() {
+    private CompletableFuture<List<EquipmentType>> getAll() {
         return equipmentTypeService.findAll();
     }
 
     @PostMapping
-    public CompletableFuture<EquipmentType> create(@Valid @RequestBody EquipmentType equipmentType) {
+    private CompletableFuture<EquipmentType> create(@Valid @RequestBody EquipmentType equipmentType) {
         return equipmentTypeService.create(equipmentType);
     }
 
     @GetMapping("/{id}")
-    public CompletableFuture<EquipmentType> getOne(@PathVariable Long id) {
+    private CompletableFuture<EquipmentType> getOne(@PathVariable Long id) {
         return equipmentTypeService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public CompletableFuture<EquipmentType> update(@Valid @RequestBody EquipmentType equipmentType, @PathVariable Long id) {
+    private CompletableFuture<EquipmentType> update(@Valid @RequestBody EquipmentType equipmentType, @PathVariable Long id) {
         return equipmentTypeService.update(equipmentType, id);
     }
 
     @DeleteMapping("/{id}")
-    public CompletableFuture<Void> delete(@PathVariable Long id) {
+    private CompletableFuture<Void> delete(@PathVariable Long id) {
         return equipmentTypeService.delete(id);
     }
 }

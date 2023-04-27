@@ -26,27 +26,27 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/")
-    public CompletableFuture<List<Employee>> findAll() {
+    private CompletableFuture<List<Employee>> findAll() {
         return employeeService.findAll();
     }
 
     @PostMapping("/")
-    public CompletableFuture<Employee> create(@Valid @RequestBody Employee employee) {
+    private CompletableFuture<Employee> create(@Valid @RequestBody Employee employee) {
         return employeeService.create(employee);
     }
 
     @GetMapping("/{id}")
-    public CompletableFuture<Employee> findById(@PathVariable Long id) {
+    private CompletableFuture<Employee> findById(@PathVariable Long id) {
         return employeeService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public CompletableFuture<Employee> update(@Valid @RequestBody Employee employee, @PathVariable Long id) {
+    private CompletableFuture<Employee> update(@Valid @RequestBody Employee employee, @PathVariable Long id) {
         return employeeService.update(employee, id);
     }
 
     @DeleteMapping("/{id}")
-    public CompletableFuture<Void> delete(@PathVariable Long id) {
+    private CompletableFuture<Void> delete(@PathVariable Long id) {
         return employeeService.delete(id);
     }
 }

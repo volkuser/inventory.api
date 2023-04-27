@@ -23,18 +23,18 @@ public class EquipmentUnitController {
     private EquipmentUnitService equipmentUnitService;
 
     @GetMapping
-    public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnits() {
+    private CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnits() {
         return equipmentUnitService.findAll();
     }
 
     @GetMapping("/paginated")
-    public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsPaginated(@RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
+    private CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsPaginated(@RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
                                                                                 @RequestParam(value = "limit", defaultValue = "20") @Min(1) @Max(100) Integer limit) {
         return equipmentUnitService.findAllPaginated(offset, limit);
     }
 
     @PostMapping("/exist-paginated")
-    public CompletableFuture<List<EquipmentUnit>> getEquipmentUnitsPaginated(
+    private CompletableFuture<List<EquipmentUnit>> getEquipmentUnitsPaginated(
             @RequestParam(value = "offset", defaultValue = "0") @Min(0) Integer offset,
             @RequestParam(value = "limit", defaultValue = "20") @Min(1) @Max(100) Integer limit,
             @RequestBody List<EquipmentUnit> equipmentUnits) {
@@ -43,12 +43,12 @@ public class EquipmentUnitController {
 
 
     @GetMapping("/count")
-    public CompletableFuture<Long> getEquipmentUnitCount(){
+    private CompletableFuture<Long> getEquipmentUnitCount(){
         return equipmentUnitService.getCountOfElements();
     }
 
     @PostMapping
-    public CompletableFuture<EquipmentUnit> createEquipmentUnit(@Valid @RequestBody EquipmentUnit equipmentUnit) {
+    private CompletableFuture<EquipmentUnit> createEquipmentUnit(@Valid @RequestBody EquipmentUnit equipmentUnit) {
         return equipmentUnitService.create(equipmentUnit);
     }
 
@@ -58,34 +58,34 @@ public class EquipmentUnitController {
     }
 
     @PutMapping("/{id}")
-    public CompletableFuture<EquipmentUnit> updateEquipmentUnit(@PathVariable(value = "id") Long equipmentUnitId,
+    private CompletableFuture<EquipmentUnit> updateEquipmentUnit(@PathVariable(value = "id") Long equipmentUnitId,
                                                                 @Valid @RequestBody EquipmentUnit equipmentUnitDetails) {
         return equipmentUnitService.update(equipmentUnitDetails, equipmentUnitId);
     }
 
     @DeleteMapping("/{id}")
-    public CompletableFuture<Void> deleteEquipmentUnit(@PathVariable(value = "id") Long equipmentUnitId) {
+    private CompletableFuture<Void> deleteEquipmentUnit(@PathVariable(value = "id") Long equipmentUnitId) {
         return equipmentUnitService.delete(equipmentUnitId);
     }
 
     @GetMapping("/guid/{guidCode}")
-    public CompletableFuture<EquipmentUnit> getEquipmentUnitByGuidCode(@PathVariable UUID guidCode) {
+    private CompletableFuture<EquipmentUnit> getEquipmentUnitByGuidCode(@PathVariable UUID guidCode) {
         return equipmentUnitService.findByGuidCode(guidCode);
     }
 
     @PostMapping("/search")
-    public CompletableFuture<List<EquipmentUnit>> searchEquipmentUnitsByInventoryNumber(@RequestParam(name = "query") String query,
+    private CompletableFuture<List<EquipmentUnit>> searchEquipmentUnitsByInventoryNumber(@RequestParam(name = "query") String query,
                                                                                         @RequestBody List<EquipmentUnit> equipmentUnits) {
         return equipmentUnitService.findByInventoryNumber(query, equipmentUnits);
     }
 
     @PostMapping("/by-equipment/{equipmentId}")
-    public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsByEquipment(@PathVariable Long equipmentId, @RequestBody List<EquipmentUnit> equipmentUnits) {
+    private CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsByEquipment(@PathVariable Long equipmentId, @RequestBody List<EquipmentUnit> equipmentUnits) {
         return equipmentUnitService.findByEquipment(equipmentId, equipmentUnits);
     }
 
     @PostMapping("/by-location/{locationId}")
-    public CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsByLocation(@PathVariable Long locationId, @RequestBody List<EquipmentUnit> equipmentUnits) {
+    private CompletableFuture<List<EquipmentUnit>> getAllEquipmentUnitsByLocation(@PathVariable Long locationId, @RequestBody List<EquipmentUnit> equipmentUnits) {
         return equipmentUnitService.findByLocation(locationId, equipmentUnits);
     }
 

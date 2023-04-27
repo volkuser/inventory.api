@@ -6,10 +6,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-import com.inventory.api.model.Equipment;
-import com.inventory.api.model.Location;
-import com.inventory.api.repo.EquipmentRepository;
-import com.inventory.api.repo.LocationRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 

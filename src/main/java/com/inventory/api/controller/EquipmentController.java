@@ -25,32 +25,32 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     @GetMapping
-    public CompletableFuture<List<Equipment>> findAll() {
+    private CompletableFuture<List<Equipment>> findAll() {
         return equipmentService.findAll();
     }
 
     @PostMapping
-    public CompletableFuture<Equipment> create(@Valid @RequestBody Equipment equipment) {
+    private CompletableFuture<Equipment> create(@Valid @RequestBody Equipment equipment) {
         return equipmentService.create(equipment);
     }
 
     @GetMapping("/{equipmentId}")
-    public CompletableFuture<Equipment> findById(@PathVariable Long equipmentId) {
+    private CompletableFuture<Equipment> findById(@PathVariable Long equipmentId) {
         return equipmentService.findById(equipmentId);
     }
 
     @GetMapping("/equipmentType/{equipmentTypeId}")
-    public CompletableFuture<List<Equipment>> findByEquipmentType(@PathVariable Long equipmentTypeId) {
+    private CompletableFuture<List<Equipment>> findByEquipmentType(@PathVariable Long equipmentTypeId) {
         return equipmentService.findByEquipmentType(equipmentTypeId);
     }
 
     @PutMapping("/{equipmentId}")
-    public CompletableFuture<Equipment> update(@Valid @RequestBody Equipment equipment, @PathVariable Long equipmentId) {
+    private CompletableFuture<Equipment> update(@Valid @RequestBody Equipment equipment, @PathVariable Long equipmentId) {
         return equipmentService.update(equipment, equipmentId);
     }
 
     @DeleteMapping("/{equipmentId}")
-    public CompletableFuture<Void> delete(@PathVariable Long equipmentId) {
+    private CompletableFuture<Void> delete(@PathVariable Long equipmentId) {
         return equipmentService.delete(equipmentId);
     }
 }
