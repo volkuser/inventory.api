@@ -25,11 +25,48 @@ public class EquipmentUnitService {
 
     private EquipmentUnitRepository equipmentUnitRepository;
 
+    // base crud options
+
+    // reading
+
     @Async
     @Transactional(readOnly = true)
     public CompletableFuture<List<EquipmentUnit>> findAll() {
         return CompletableFuture.completedFuture(equipmentUnitRepository.findAll());
     }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<EquipmentUnit> findById(Long id) {
+        Optional<EquipmentUnit> equipmentUnit = equipmentUnitRepository.findById(id);
+        return CompletableFuture.completedFuture(equipmentUnit.get());
+    }
+
+    // editing
+
+    @Async
+    @Transactional
+    public CompletableFuture<EquipmentUnit> create(@Valid @NotNull EquipmentUnit equipmentUnit) {
+        return CompletableFuture.completedFuture(equipmentUnitRepository.save(equipmentUnit));
+    }
+
+    @Async
+    @Transactional
+    public CompletableFuture<EquipmentUnit> update(@Valid @NotNull EquipmentUnit equipmentUnit, Long id) {
+        equipmentUnit.setEquipmentUnitId(id);
+        return CompletableFuture.completedFuture(equipmentUnitRepository.save(equipmentUnit));
+    }
+
+    @Async
+    @Transactional
+    public CompletableFuture<Void> delete(Long id) {
+        equipmentUnitRepository.deleteById(id);
+        return CompletableFuture.completedFuture(null);
+    }
+
+    // specific actions
+
+    // pagination
 
     @Async
     @Transactional(readOnly = true)
@@ -53,32 +90,7 @@ public class EquipmentUnitService {
         return CompletableFuture.completedFuture(equipmentUnitRepository.count());
     }
 
-    @Async
-    @Transactional
-    public CompletableFuture<EquipmentUnit> create(@Valid @NotNull EquipmentUnit equipmentUnit) {
-        return CompletableFuture.completedFuture(equipmentUnitRepository.save(equipmentUnit));
-    }
-
-    @Async
-    @Transactional(readOnly = true)
-    public CompletableFuture<EquipmentUnit> findById(Long id) {
-        Optional<EquipmentUnit> equipmentUnit = equipmentUnitRepository.findById(id);
-        return CompletableFuture.completedFuture(equipmentUnit.get());
-    }
-
-    @Async
-    @Transactional
-    public CompletableFuture<EquipmentUnit> update(@Valid @NotNull EquipmentUnit equipmentUnit, Long id) {
-        equipmentUnit.setEquipmentUnitId(id);
-        return CompletableFuture.completedFuture(equipmentUnitRepository.save(equipmentUnit));
-    }
-
-    @Async
-    @Transactional
-    public CompletableFuture<Void> delete(Long id) {
-        equipmentUnitRepository.deleteById(id);
-        return CompletableFuture.completedFuture(null);
-    }
+    // qr-code
 
     @Async
     @Transactional(readOnly = true)
@@ -86,6 +98,8 @@ public class EquipmentUnitService {
         Optional<EquipmentUnit> equipmentUnit = equipmentUnitRepository.findByGuidCode(guidCode);
         return CompletableFuture.completedFuture(equipmentUnit.get());
     }
+
+    // search
 
     @Async
     @Transactional(readOnly = true)
@@ -98,6 +112,8 @@ public class EquipmentUnitService {
         }
         return CompletableFuture.completedFuture(matchingEquipmentUnits);
     }
+
+    // filter
 
     @Async
     @Transactional(readOnly = true)

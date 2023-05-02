@@ -21,6 +21,10 @@ public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
+    // base crud options
+
+    // reading
+
     @Async
     @Transactional(readOnly = true)
     public CompletableFuture<List<Employee>> findAll() {
@@ -28,16 +32,18 @@ public class EmployeeService {
     }
 
     @Async
-    @Transactional
-    public CompletableFuture<Employee> create(@Valid @NotNull Employee employee) {
-        return CompletableFuture.completedFuture(employeeRepository.save(employee));
-    }
-
-    @Async
     @Transactional(readOnly = true)
     public CompletableFuture<Employee> findById(Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);
         return CompletableFuture.completedFuture(employee.get());
+    }
+
+    // editing
+
+    @Async
+    @Transactional
+    public CompletableFuture<Employee> create(@Valid @NotNull Employee employee) {
+        return CompletableFuture.completedFuture(employeeRepository.save(employee));
     }
 
     @Async

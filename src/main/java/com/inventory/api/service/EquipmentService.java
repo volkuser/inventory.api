@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import com.inventory.api.model.EquipmentType;
+import com.inventory.api.model.TrainingCenter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,16 +23,14 @@ public class EquipmentService {
     private EquipmentRepository equipmentRepository;
     private EquipmentTypeService equipmentTypeService;
 
+    // base crud options
+
+    // reading
+
     @Async
     @Transactional(readOnly = true)
     public CompletableFuture<List<Equipment>> findAll() {
         return CompletableFuture.completedFuture(equipmentRepository.findAll());
-    }
-
-    @Async
-    @Transactional
-    public CompletableFuture<Equipment> create(@Valid @NotNull Equipment equipment) {
-        return CompletableFuture.completedFuture(equipmentRepository.save(equipment));
     }
 
     @Async
@@ -41,12 +40,12 @@ public class EquipmentService {
         return CompletableFuture.completedFuture(equipment.get());
     }
 
+    // editing
+
     @Async
-    @Transactional(readOnly = true)
-    public CompletableFuture<List<Equipment>> findByEquipmentType(Long equipmentTypeId) {
-        EquipmentType equipmentType = equipmentTypeService.findById(equipmentTypeId).join();
-        List<Equipment> equipmentList = equipmentRepository.findByEquipmentType(equipmentType);
-        return CompletableFuture.completedFuture(equipmentList);
+    @Transactional
+    public CompletableFuture<Equipment> create(@Valid @NotNull Equipment equipment) {
+        return CompletableFuture.completedFuture(equipmentRepository.save(equipment));
     }
 
     @Async
@@ -61,5 +60,22 @@ public class EquipmentService {
     public CompletableFuture<Void> delete(Long id) {
         equipmentRepository.deleteById(id);
         return CompletableFuture.completedFuture(null);
+    }
+
+    // specific actions
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<List<Equipment>> findByEquipmentType(Long equipmentTypeId) {
+        EquipmentType equipmentType = equipmentTypeService.findById(equipmentTypeId).join();
+        List<Equipment> equipmentList = equipmentRepository.findByEquipmentType(equipmentType);
+        return CompletableFuture.completedFuture(equipmentList);
+    }
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<Long> findFirstId() {
+        Optional<Equipment> equipment = equipmentRepository.findFirstByOrderByEquipmentIdAsc();
+        return CompletableFuture.completedFuture(equipment.map(Equipment::getEquipmentId).orElse(null));
     }
 }

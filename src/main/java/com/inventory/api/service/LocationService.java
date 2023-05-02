@@ -24,6 +24,10 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final TrainingCenterRepository trainingCenterRepository;
 
+    // base crud options
+
+    // reading
+
     @Async
     @Transactional(readOnly = true)
     public CompletableFuture<List<Location>> findAll() {
@@ -31,16 +35,18 @@ public class LocationService {
     }
 
     @Async
-    @Transactional
-    public CompletableFuture<Location> create(@Valid @NotNull Location location) {
-        return CompletableFuture.completedFuture(locationRepository.save(location));
-    }
-
-    @Async
     @Transactional(readOnly = true)
     public CompletableFuture<Location> findById(Long id) {
         Optional<Location> location = locationRepository.findById(id);
         return CompletableFuture.completedFuture(location.get());
+    }
+
+    // editing
+
+    @Async
+    @Transactional
+    public CompletableFuture<Location> create(@Valid @NotNull Location location) {
+        return CompletableFuture.completedFuture(locationRepository.save(location));
     }
 
     @Async
@@ -56,6 +62,8 @@ public class LocationService {
         locationRepository.deleteById(id);
         return CompletableFuture.completedFuture(null);
     }
+
+    // specific actions
 
     @Async
     @Transactional(readOnly = true)

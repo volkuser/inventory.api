@@ -25,19 +25,25 @@ import com.inventory.api.service.EquipmentTypeService;
 public class EquipmentTypeController {
     private EquipmentTypeService equipmentTypeService;
 
+    // base crud options
+
+    // reading
+
     @GetMapping
-    private CompletableFuture<List<EquipmentType>> getAll() {
+    private CompletableFuture<List<EquipmentType>> findAll() {
         return equipmentTypeService.findAll();
     }
+
+    @GetMapping("/{id}")
+    private CompletableFuture<EquipmentType> findById(@PathVariable Long id) {
+        return equipmentTypeService.findById(id);
+    }
+
+    // editing
 
     @PostMapping
     private CompletableFuture<EquipmentType> create(@Valid @RequestBody EquipmentType equipmentType) {
         return equipmentTypeService.create(equipmentType);
-    }
-
-    @GetMapping("/{id}")
-    private CompletableFuture<EquipmentType> getOne(@PathVariable Long id) {
-        return equipmentTypeService.findById(id);
     }
 
     @PutMapping("/{id}")
@@ -48,5 +54,12 @@ public class EquipmentTypeController {
     @DeleteMapping("/{id}")
     private CompletableFuture<Void> delete(@PathVariable Long id) {
         return equipmentTypeService.delete(id);
+    }
+
+    // specific actions
+
+    @GetMapping("/first-id")
+    private CompletableFuture<Long> getFirstId() {
+        return equipmentTypeService.findFirstId();
     }
 }

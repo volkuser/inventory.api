@@ -26,29 +26,42 @@ public class TrainingCenterController {
 
     private TrainingCenterService trainingCenterService;
 
+    // base crud options
+
+    // reading
+
     @GetMapping
-    private CompletableFuture<List<TrainingCenter>> getAllTrainingCenters() {
+    private CompletableFuture<List<TrainingCenter>> findAll() {
         return trainingCenterService.findAll();
     }
 
-    @PostMapping
-    private CompletableFuture<TrainingCenter> createTrainingCenter(@Valid @RequestBody TrainingCenter trainingCenter) {
-        return trainingCenterService.create(trainingCenter);
-    }
-
     @GetMapping("/{id}")
-    private CompletableFuture<TrainingCenter> getTrainingCenterById(@PathVariable(value = "id") Long trainingCenterId) {
+    private CompletableFuture<TrainingCenter> findById(@PathVariable(value = "id") Long trainingCenterId) {
         return trainingCenterService.findById(trainingCenterId);
     }
 
+    // editing
+
+    @PostMapping
+    private CompletableFuture<TrainingCenter> create(@Valid @RequestBody TrainingCenter trainingCenter) {
+        return trainingCenterService.create(trainingCenter);
+    }
+
     @PutMapping("/{id}")
-    private CompletableFuture<TrainingCenter> updateTrainingCenter(@PathVariable(value = "id") Long trainingCenterId,
+    private CompletableFuture<TrainingCenter> update(@PathVariable(value = "id") Long trainingCenterId,
                                                @Valid @RequestBody TrainingCenter trainingCenterDetails) {
         return trainingCenterService.update(trainingCenterDetails, trainingCenterId);
     }
 
     @DeleteMapping("/{id}")
-    private CompletableFuture<Void> deleteTrainingCenter(@PathVariable(value = "id") Long trainingCenterId) {
+    private CompletableFuture<Void> delete(@PathVariable(value = "id") Long trainingCenterId) {
         return trainingCenterService.delete(trainingCenterId);
+    }
+
+    // specific actions
+
+    @GetMapping("/first-id")
+    private CompletableFuture<Long> getFirstId() {
+        return trainingCenterService.findFirstId();
     }
 }

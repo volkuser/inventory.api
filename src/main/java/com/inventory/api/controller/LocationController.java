@@ -19,31 +19,39 @@ public class LocationController {
 
     private LocationService locationService;
 
+    // base crud options
+
+    // reading
+
     @GetMapping
-    private CompletableFuture<List<Location>> getAllLocations() {
+    private CompletableFuture<List<Location>> findAll() {
         return locationService.findAll();
     }
 
-    @PostMapping
-    private CompletableFuture<Location> createLocation(@Valid @RequestBody Location location) {
-        return locationService.create(location);
-    }
-
     @GetMapping("/{id}")
-    private CompletableFuture<Location> getLocationById(@PathVariable(value = "id") Long locationId) {
+    private CompletableFuture<Location> findById(@PathVariable(value = "id") Long locationId) {
         return locationService.findById(locationId);
     }
 
+    // editing
+
+    @PostMapping
+    private CompletableFuture<Location> create(@Valid @RequestBody Location location) {
+        return locationService.create(location);
+    }
+
     @PutMapping("/{id}")
-    private CompletableFuture<Location> updateLocation(@PathVariable(value = "id") Long locationId,
+    private CompletableFuture<Location> update(@PathVariable(value = "id") Long locationId,
                                                       @Valid @RequestBody Location locationDetails) {
         return locationService.update(locationDetails, locationId);
     }
 
     @DeleteMapping("/{id}")
-    private CompletableFuture<Void> deleteLocation(@PathVariable(value = "id") Long locationId) {
+    private CompletableFuture<Void> delete(@PathVariable(value = "id") Long locationId) {
         return locationService.delete(locationId);
     }
+
+    // specific actions
 
     @GetMapping("/get-by-center-and-number")
     private CompletableFuture<Location> getLocationByTrainingCenterIdAndLocationNumber(

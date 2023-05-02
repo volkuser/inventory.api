@@ -23,6 +23,10 @@ public class UserService {
 
     private UserRepository userRepository;
 
+    // base crud options
+
+    // reading
+
     @Async
     @Transactional(readOnly = true)
     public CompletableFuture<List<User>> findAll() {
@@ -30,16 +34,18 @@ public class UserService {
     }
 
     @Async
-    @Transactional
-    public CompletableFuture<User> create(@Valid @NotNull User user) {
-        return CompletableFuture.completedFuture(userRepository.save(user));
-    }
-
-    @Async
     @Transactional(readOnly = true)
     public CompletableFuture<User> findById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return CompletableFuture.completedFuture(user.get());
+    }
+
+    // editing
+
+    @Async
+    @Transactional
+    public CompletableFuture<User> create(@Valid @NotNull User user) {
+        return CompletableFuture.completedFuture(userRepository.save(user));
     }
 
     @Async

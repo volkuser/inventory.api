@@ -21,6 +21,10 @@ public class EquipmentTypeService {
 
     private EquipmentTypeRepository equipmentTypeRepository;
 
+    // base crud options
+
+    // reading
+
     @Async
     @Transactional(readOnly = true)
     public CompletableFuture<List<EquipmentType>> findAll() {
@@ -28,16 +32,18 @@ public class EquipmentTypeService {
     }
 
     @Async
-    @Transactional
-    public CompletableFuture<EquipmentType> create(@Valid @NotNull EquipmentType equipmentType) {
-        return CompletableFuture.completedFuture(equipmentTypeRepository.save(equipmentType));
-    }
-
-    @Async
     @Transactional(readOnly = true)
     public CompletableFuture<EquipmentType> findById(Long id) {
         Optional<EquipmentType> equipmentType = equipmentTypeRepository.findById(id);
         return CompletableFuture.completedFuture(equipmentType.get());
+    }
+
+    // editing
+
+    @Async
+    @Transactional
+    public CompletableFuture<EquipmentType> create(@Valid @NotNull EquipmentType equipmentType) {
+        return CompletableFuture.completedFuture(equipmentTypeRepository.save(equipmentType));
     }
 
     @Async
@@ -52,5 +58,14 @@ public class EquipmentTypeService {
     public CompletableFuture<Void> delete(Long id) {
         equipmentTypeRepository.deleteById(id);
         return CompletableFuture.completedFuture(null);
+    }
+
+    // specific actions
+
+    @Async
+    @Transactional(readOnly = true)
+    public CompletableFuture<Long> findFirstId() {
+        Optional<EquipmentType> equipmentType = equipmentTypeRepository.findFirstByOrderByEquipmentTypeIdAsc();
+        return CompletableFuture.completedFuture(equipmentType.map(EquipmentType::getEquipmentTypeId).orElse(null));
     }
 }

@@ -25,19 +25,25 @@ import com.inventory.api.service.EmployeeService;
 public class EmployeeController {
     private EmployeeService employeeService;
 
+    // base crud options
+
+    // reading
+
     @GetMapping("/")
     private CompletableFuture<List<Employee>> findAll() {
         return employeeService.findAll();
     }
 
-    @PostMapping("/")
-    private CompletableFuture<Employee> create(@Valid @RequestBody Employee employee) {
-        return employeeService.create(employee);
-    }
-
     @GetMapping("/{id}")
     private CompletableFuture<Employee> findById(@PathVariable Long id) {
         return employeeService.findById(id);
+    }
+
+    // editing
+
+    @PostMapping("/")
+    private CompletableFuture<Employee> create(@Valid @RequestBody Employee employee) {
+        return employeeService.create(employee);
     }
 
     @PutMapping("/{id}")
